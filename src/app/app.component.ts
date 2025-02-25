@@ -11,6 +11,6 @@ import { RouterModule } from '@angular/router';
   template: `
     <router-outlet></router-outlet>
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class AppComponent {}

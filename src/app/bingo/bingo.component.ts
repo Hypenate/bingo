@@ -78,7 +78,7 @@ export class BingoComponent {
   private currentTime = 0;
 
   startTimer() {
-    clearInterval(this.intervalId);
+      clearInterval(this.intervalId);  
 
     this.intervalId = window.setInterval(() => {
       this.currentTime++; // Mutation won't trigger OnPush detection
