@@ -9,7 +9,9 @@ import { bingoWords } from './bingo.words';
   standalone: true,
   template: `
     <div class="bingo-container">
-    <div class="timer">⏱️ {{ formatTime() }}</div>
+      @if(isLive){
+        <div class="timer">⏱️ {{ formatTime() }}</div>
+      }
 
       @if (hasWon) {
         <div class="win-overlay" (click)="hasWon = false">
@@ -37,7 +39,8 @@ import { bingoWords } from './bingo.words';
         <label class="checkbox-label">
           <input
           type="checkbox"
-          [(ngModel)]="isLive"         
+          [(ngModel)]="isLive"
+          (change)="startTimer()"         
           class="checkbox-input"
           />
           Live
@@ -89,8 +92,6 @@ export class AppComponent {
   constructor() {
     this.generateBingoCard();
     this.toggledCells[12] = true; // Center cell is always marked
-
-    this.startTimer();
   }
 
   private intervalId?: number;
