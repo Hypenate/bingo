@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { bingoWords } from './bingo.words';
@@ -9,6 +9,8 @@ import { bingoWords } from './bingo.words';
   standalone: true,
   template: `
     <div class="bingo-container">
+    <div class="timer">⏱️ {{ formatTime() }}</div>
+
       @if (hasWon) {
         <div class="win-overlay" (click)="hasWon = false">
           <div class="win-text">🎉 BINGO! 🎉</div>
@@ -56,7 +58,7 @@ import { bingoWords } from './bingo.words';
             {{ i === 12 ? "★" : cell }}
           </button>
         }
-      </div>
+            </div>
 
       @if(!isLive){
         <button (click)="generateCardValues()" class="generate-button">
@@ -68,10 +70,12 @@ import { bingoWords } from './bingo.words';
             Drawn {{ useWords ? "word" : "number" }}: {{ value }}
           </div>
         }
-      }
+      } 
+      
     </div>
   `,
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class AppComponent {
   hasWon = false;
@@ -85,6 +89,27 @@ export class AppComponent {
   constructor() {
     this.generateBingoCard();
     this.toggledCells[12] = true; // Center cell is always marked
+
+    this.startTimer();
+  }
+
+  private intervalId?: number;
+  private currentTime = 0;
+
+  getTime() {
+    return this.currentTime;
+  }
+
+  startTimer() {
+    this.intervalId = window.setInterval(() => {
+      this.currentTime++;  // Mutation won't trigger OnPush detection
+    }, 1000);
+  }
+
+  formatTime(): string {
+    const minutes = Math.floor(this.currentTime / 60);
+    const seconds = this.currentTime % 60;
+    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
   }
 
   generateBingoCard() {
