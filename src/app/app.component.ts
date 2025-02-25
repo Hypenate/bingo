@@ -9,10 +9,6 @@ import { bingoWords } from './bingo.words';
   standalone: true,
   template: `
     <div class="bingo-container">
-      @if(isLive){
-        <div class="timer">⏱️ {{ formatTime() }}</div>
-      }
-
       @if (hasWon) {
         <div class="win-overlay" (click)="hasWon = false">
           <div class="win-text">🎉 BINGO! 🎉</div>
@@ -27,22 +23,12 @@ import { bingoWords } from './bingo.words';
 
       <div class="bingo-options">
         <label class="checkbox-label">
-          <input
-          type="checkbox"
-          [(ngModel)]="useWords"
-          (change)="generateBingoCard()"
-          class="checkbox-input"
-          />
+          <input type="checkbox" [(ngModel)]="useWords" (change)="generateBingoCard()" class="checkbox-input" />
           Use Words
         </label>
-        
+
         <label class="checkbox-label">
-          <input
-          type="checkbox"
-          [(ngModel)]="isLive"
-          (change)="startTimer()"         
-          class="checkbox-input"
-          />
+          <input type="checkbox" [(ngModel)]="isLive" (change)="startTimer()" class="checkbox-input" />
           Live
         </label>
       </div>
@@ -53,28 +39,21 @@ import { bingoWords } from './bingo.words';
             (click)="toggleCell(i)"
             [disabled]="i === 12"
             class="bingo-cell"
-            [ngClass]="[
-              useWords ? 'cell-word' : 'cell-number',
-              toggledCells[i] ? 'cell-active' : 'cell-inactive'
-            ]"
-          >
-            {{ i === 12 ? "★" : cell }}
+            [ngClass]="[useWords ? 'cell-word' : 'cell-number', toggledCells[i] ? 'cell-active' : 'cell-inactive']">
+            {{ i === 12 ? '★' : cell }}
           </button>
         }
-            </div>
+      </div>
 
-      @if(!isLive){
-        <button (click)="generateCardValues()" class="generate-button">
-          Generate {{ useWords ? "Word" : "Number" }}
-        </button>
-        
+      @if (!isLive) {
+        <button (click)="generateCardValues()" class="generate-button">Generate {{ useWords ? 'Word' : 'Number' }}</button>
+
         @if (value) {
-          <div class="drawn-value">
-            Drawn {{ useWords ? "word" : "number" }}: {{ value }}
-          </div>
+          <div class="drawn-value">Drawn {{ useWords ? 'word' : 'number' }}: {{ value }}</div>
         }
-      } 
-      
+      } @else {
+        <div class="timer">⏱️ {{ getFormattedTime() }}</div>
+      }
     </div>
   `,
   styleUrls: ['./app.component.css'],
@@ -97,17 +76,15 @@ export class AppComponent {
   private intervalId?: number;
   private currentTime = 0;
 
-  getTime() {
-    return this.currentTime;
-  }
-
   startTimer() {
+    clearInterval(this.intervalId);
+
     this.intervalId = window.setInterval(() => {
-      this.currentTime++;  // Mutation won't trigger OnPush detection
+      this.currentTime++; // Mutation won't trigger OnPush detection
     }, 1000);
   }
 
-  formatTime(): string {
+  getFormattedTime(): string {
     const minutes = Math.floor(this.currentTime / 60);
     const seconds = this.currentTime % 60;
     return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
@@ -115,21 +92,14 @@ export class AppComponent {
 
   generateBingoCard() {
     if (this.useWords) {
-      this.bingoCard = [...this.words]
-        .sort(() => 0.5 - Math.random())
-        .slice(0, 25);
+      this.bingoCard = [...this.words].sort(() => 0.5 - Math.random()).slice(0, 25);
     } else {
-      this.bingoCard = Array.from(
-        { length: 25 },
-        () => Math.floor(Math.random() * 75) + 1,
-      );
+      this.bingoCard = Array.from({ length: 25 }, () => Math.floor(Math.random() * 75) + 1);
     }
   }
 
   generateCardValues() {
-    this.value = this.useWords
-      ? this.words[Math.floor(Math.random() * this.words.length)]
-      : Math.floor(Math.random() * 75) + 1;
+    this.value = this.useWords ? this.words[Math.floor(Math.random() * this.words.length)] : Math.floor(Math.random() * 75) + 1;
   }
 
   toggleCell(i: number) {
@@ -147,8 +117,7 @@ export class AppComponent {
 
     // Vertical columns
     for (let i = 0; i < 5; i++) {
-      if ([0, 1, 2, 3, 4].every((j) => this.toggledCells[i + j * 5]))
-        return true;
+      if ([0, 1, 2, 3, 4].every((j) => this.toggledCells[i + j * 5])) return true;
     }
 
     // Diagonals

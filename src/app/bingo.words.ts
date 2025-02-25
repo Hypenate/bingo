@@ -1,4 +1,4 @@
-export const bingoWords : string[] = [
+export const bingoWords: string[] = [
   'Opportunity',
   'Growth',
   'Success',
