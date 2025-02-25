@@ -1,0 +1,20 @@
+{
+  "singleQuote": true,
+  "quoteProps": "consistent",
+  "bracketSpacing": true,
+  "bracketSameLine": true,
+  "printWidth": 180,
+  "trailingComma": "all",
+  "arrowParens": "always",
+  "htmlWhitespaceSensitivity": "ignore",
+  "overrides": [
+    {
+      "files": ["**/*.css", "**/*.scss", "**/*.html", "**/*.json"],
+      "options": {
+        "singleQuote": false,
+        "trailingComma": "none"
+      }
+    }
+  ],
+  "plugins": ["prettier-plugin-tailwindcss"]
+}
