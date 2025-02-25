@@ -1,0 +1,59 @@
+.bingo-container {
+    @apply flex flex-col items-center justify-center h-screen bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-white p-6 w-screen;
+  }
+  
+  .win-overlay {
+    @apply absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center z-10;
+  }
+  
+  .win-text {
+    @apply text-6xl font-bold animate-bounce;
+  }
+  
+  .title {
+    @apply text-5xl font-bold mb-6 drop-shadow-lg;
+  }
+  
+  .checkbox-label {
+    @apply mb-4 flex items-center;
+  }
+  
+  .checkbox-input {
+    @apply mr-2;
+  }
+  
+  .bingo-grid {
+    @apply grid grid-cols-5 gap-4 bg-white p-6 rounded-2xl shadow-xl text-black;
+  }
+  
+  .bingo-options {
+    @apply flex flex-col items-center justify-center;
+  }
+  
+  .bingo-cell {
+    @apply hover:cursor-pointer flex items-center justify-center text-xl font-bold rounded-lg shadow-md;
+  }
+  
+  .cell-word {
+    @apply w-28 h-28 text-base p-2;
+  }
+  
+  .cell-number {
+    @apply w-16 h-16;
+  }
+  
+  .cell-active {
+    @apply bg-green-400;
+  }
+  
+  .cell-inactive {
+    @apply bg-gray-200;
+  }
+  
+  .generate-button {
+    @apply mt-6 px-6 py-3 bg-yellow-400 text-black font-bold text-lg rounded-lg shadow-lg hover:bg-yellow-500 transition transform hover:scale-105;
+  }
+  
+  .drawn-value {
+    @apply mt-4 text-3xl font-bold bg-white text-black px-4 py-2 rounded-lg shadow-md;
+  }
