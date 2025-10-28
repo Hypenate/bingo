@@ -8,6 +8,11 @@ export const routes: Routes = [
     component: AppComponent,
     children: [
       {
+        path: '',
+        redirectTo: 'bingo',
+        pathMatch: 'full',
+      },
+      {
         path: 'bingo',
         component: BingoComponent,
       },
