@@ -11,29 +11,29 @@ import { bingoWords } from './bingo.words';
     <div class="bingo-container">
       @if (hasWon) {
         <div class="win-overlay" (click)="hasWon = false">
-          <div class="win-text">🎉 BINGO! 🎉</div>
+          <div qa-id="win-overlay" class="win-text">🎉 BINGO! 🎉</div>
         </div>
       }
 
       @if (useWords) {
-        <h1 class="title">CORPORATE BINGO!</h1>
+        <h1 qa-id="use-words-corporate" class="title">CORPORATE BINGO!</h1>
       } @else {
-        <h1 class="title">BINGO!</h1>
+        <h1 qa-id="use-words-classic" class="title">BINGO!</h1>
       }
 
       <div class="bingo-options">
         <label class="checkbox-label">
-          <input type="checkbox" [(ngModel)]="useWords" (change)="generateBingoCard()" class="checkbox-input" />
+          <input qa-id="bingo-type-checkbox" type="checkbox" [(ngModel)]="useWords" (change)="generateBingoCard()" class="checkbox-input" />
           Use Words
         </label>
 
         <label class="checkbox-label">
-          <input type="checkbox" [(ngModel)]="isLive" (change)="startTimer()" class="checkbox-input" />
+          <input qa-id="bingo-timer-checkbox" type="checkbox" [(ngModel)]="isLive" (change)="startTimer()" class="checkbox-input" />
           Live
         </label>
       </div>
 
-      <div class="bingo-grid">
+      <div qa-id="bingo-grid" class="bingo-grid">
         @for (cell of bingoCard; let i = $index; track cell) {
           <button
             (click)="toggleCell(i)"
@@ -46,13 +46,13 @@ import { bingoWords } from './bingo.words';
       </div>
 
       @if (!isLive) {
-        <button (click)="generateCardValues()" class="generate-button">Generate {{ useWords ? 'Word' : 'Number' }}</button>
+        <button qa-id="bingo-is-live-button" (click)="generateCardValues()" class="generate-button">Generate {{ useWords ? 'Word' : 'Number' }}</button>
 
         @if (value) {
-          <div class="drawn-value">Drawn {{ useWords ? 'word' : 'number' }}: {{ value }}</div>
+          <div qa-id="bingo-type-value" class="drawn-value">Drawn {{ useWords ? 'word' : 'number' }}: {{ value }}</div>
         }
       } @else {
-        <div class="timer">⏱️ {{ getFormattedTime() }}</div>
+        <div qa-id="bingo-timer-value" class="timer">⏱️ {{ getFormattedTime() }}</div>
       }
     </div>
   `,
@@ -78,7 +78,7 @@ export class BingoComponent {
   private currentTime = 0;
 
   startTimer() {
-      clearInterval(this.intervalId);  
+      clearInterval(this.intervalId);
 
     this.intervalId = window.setInterval(() => {
       this.currentTime++; // Mutation won't trigger OnPush detection

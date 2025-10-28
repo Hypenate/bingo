@@ -7,6 +7,7 @@ export default defineConfig({
   use: {
     baseURL: 'http://localhost:4200',
     trace: 'on-first-retry',
+    testIdAttribute: 'qa-id',
   },
 
   /* Configure projects for major browsers */
