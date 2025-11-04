@@ -1,6 +1,7 @@
-<<<<<<< HEAD
 # bingo
 An app to use for techsessions and presentations
+This app is not for production, only for demo's and experimentation.
+This app does not follow the conventions one would use for production/enterprise code
 =======
 # Bingo
 
