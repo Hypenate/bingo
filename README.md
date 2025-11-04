@@ -1,8 +1,8 @@
-# bingo
+# NOTE:
 An app to use for techsessions and presentations
 This app is not for production, only for demo's and experimentation.
 This app does not follow the conventions one would use for production/enterprise code
-=======
+
 # Bingo
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.8.
@@ -62,4 +62,3 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
->>>>>>> master
